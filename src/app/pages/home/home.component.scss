@@ -1,0 +1,48 @@
+@import '../../../styles.scss';
+.landing-cover{
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+    linear-gradient(135deg, rgb(21, 87, 36, 0.7), rgb(0, 0, 0, 0.7)),
+    url('../../../assets/images/main.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    .section{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin: auto;
+        color: white;
+        .section-text{
+            line-height: 30px;
+            font-size: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .section-button{
+            background-color: $DarkGreen;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+
+            &:hover{
+                color: $DarkGreen;
+                background-color: $White;
+            }
+        }
+    }
+    @media screen and (max-width:800px){
+        &{
+            height: 500px;
+        }
+    }
+}

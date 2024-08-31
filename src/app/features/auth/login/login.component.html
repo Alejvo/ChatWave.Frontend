@@ -1,0 +1,34 @@
+<div class="login">
+    <div class="section">
+        <p class="section-title">ChatWave</p>
+        <p class="section-text">Instant Chats, Endless Possibilities</p>
+    </div>
+    <div class="login-content">
+        <div class="login-form">
+            <input 
+            id="email" 
+            type="email" 
+            name="email" 
+            [(ngModel)]="email" 
+            class="input" 
+            placeholder="email" 
+            #emailInput="ngModel">
+            
+            <input 
+            id="password" 
+            name="password" 
+            [(ngModel)]="password" 
+            class="input" 
+            placeholder="password" 
+            type="password" 
+            #passwordInput="ngModel">
+            <button class="login-button" (click)="login()">Log In</button>
+            <a>Forgot your password?</a>
+            <hr>
+            <div class="login-register">
+                <p>Don't have an account?</p>
+                <a>Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>
