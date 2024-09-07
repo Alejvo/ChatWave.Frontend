@@ -36,8 +36,6 @@ export class UserService {
   addToFriend(userId: string, friendId: string): Observable<HttpResponse<any>>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const params = {userId,friendId }
-    return this.http.post<any>(`${this.apiUrl}/api/users/add-friend`, params,{headers,observe:'response'}).pipe(
-      tap(response=>console.log(response.body))
-    )
+    return this.http.post<any>(`${this.apiUrl}/api/users/add-friend`, params,{headers,observe:'response'})
   }
 }
