@@ -11,7 +11,10 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient,private router:Router) { }
+  constructor(private http:HttpClient) 
+  {
+
+  }
 
   private apiUrl = environment.apiUrl;
   private decodeToken(token:string):any{
@@ -36,7 +39,7 @@ export class AuthService {
     const params = {email,password}
     return this.http.post<any>(`${this.apiUrl}/api/users/login`,params,{headers,observe:'response'})
     .pipe(
-      map((response)=>{
+      map((response)=>{   
         if(response.status === 200 && response.body.token){
           localStorage.setItem('token',response.body.token);
           return true;

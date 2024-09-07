@@ -1,10 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { User } from 'src/app/core/models/user';
+import { User } from 'src/app/core/models/users/user';
 import { UserService } from 'src/app/core/services/user.service';
 import { ChatService } from '../../services/chat.service';
-import { userMessage } from 'src/app/core/models/userMessage';
 import { message } from 'src/app/core/models/message';
-import { groupMessage } from 'src/app/core/models/groupMessage';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 @Component({
@@ -13,13 +11,13 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
   styleUrls: ['./chat-page.component.scss']
 })
 export class ChatPageComponent {
+  isModalVisible: boolean = false;
 
   user:User | null = null;
-  userMessages!:userMessage[];
-  groupMessages!: groupMessage[];
   messages!:message[];
   messageContent = "";
   currentContact = "";
+  contactType !:string;
   isSideBarActive: boolean = false;
   isGroupsAccordionOpen: boolean = true;
   isFriendsAccordionOpen: boolean = true;
@@ -36,13 +34,12 @@ export class ChatPageComponent {
     const token = this.authService.getToken();
     if(token){
       const info = this.authService.getUserInfoFromToken(token);
-      console.log(info?.userId)
       if(info){
 
         this.chatService.startConnection();
         this.chatService.messageReceived$.subscribe({
           next: (data) => {
-            console.log(`Text: ${data.text}`);
+            console.log(data);
             const status = data.senderId === this.userId ?'Sent':'Received'
             this.messages.push({...data,status});
           }
@@ -58,7 +55,7 @@ export class ChatPageComponent {
         });
         this.userId = info.userId;
         this.username = info.username;
-        console.log(`username: ${this.username}, userId: ${this.userId}`)
+
         this.getUserById(this.userId);
       }
     }else{
@@ -69,9 +66,14 @@ export class ChatPageComponent {
 
   }
 
+  showModal() {
+    this.isModalVisible = !this.isModalVisible;
+  }
   ngAfterViewChecked(){
     this.scrollToBottom();
   }
+
+
   private scrollToBottom(): void {
     const container = this.messageContainer.nativeElement;
     container.scrollTop = container.scrollHeight;
@@ -101,16 +103,23 @@ export class ChatPageComponent {
       }
     );
   }
-  loadHistory(contactId:string):void{
+  loadHistory(contactId:string,type:string):void{
     this.currentContact = contactId;
+    this.contactType = type;
+
     if(this.currentContact && this.userId){
-      this.chatService.getMessageHistory(this.userId,this.currentContact);
+      (this.contactType === 'group')
+      ? this.chatService.getGroupMessageHistory(this.currentContact,this.userId)
+      : this.chatService.getMessageHistory(this.userId, this.currentContact);
     }
   }
   sendMessage(){
     if (this.userId && this.currentContact && this.messageContent) {
-      this.chatService.sendMessageToUser(this.currentContact,this.userId,this.messageContent);
+      (this.contactType === 'group')
+        ? this.chatService.sendGroupMessage(this.currentContact, this.userId, this.messageContent)
+        : this.chatService.sendMessageToUser(this.currentContact, this.userId, this.messageContent)
       this.messageContent = '';
+
     }
   }
 }

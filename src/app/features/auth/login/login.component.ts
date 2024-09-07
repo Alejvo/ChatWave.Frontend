@@ -8,9 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
   public email:string = '';
   public password:string = '';
-
+  public isModalVisible = false;
   constructor(private authService:AuthService,private router:Router){}
 
   login(){
@@ -23,5 +24,9 @@ export class LoginComponent {
         }
       }
     })
+  }
+
+  showModal() {
+    this.isModalVisible = !this.isModalVisible;
   }
 }

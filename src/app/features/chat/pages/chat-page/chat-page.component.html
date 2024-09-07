@@ -24,7 +24,7 @@
                     <div class="friends-container" *ngFor="let friend of user.friends">
                         <app-contacts 
                         [Name]="friend.name" 
-                        (messagesEvent)="loadHistory(friend.id)"
+                        (messagesEvent)="loadHistory(friend.id,'friend')"
                         ></app-contacts>
                     </div>
                 </ng-container>
@@ -42,11 +42,15 @@
                     <mat-icon>keyboard_arrow_right</mat-icon>
                     </button>
                 </div>
-                <ng-container *ngIf="user !== null && user.groups.length >0; else noGroups">
-                <div class="groups-container" *ngFor="let group of user.groups">
-                    <app-contacts [Name]="group"></app-contacts>
-                </div>
+                <ng-container *ngIf="user !== null; else noGroups">
+                    <div class="groups-container" *ngFor="let group of user.groups">
+                        <app-contacts 
+                        [Name]="group.name" 
+                        (messagesEvent)="loadHistory(group.id,'group')"
+                        ></app-contacts>
+                    </div>
                 </ng-container>
+
                 <ng-template #noGroups>
                     <p [ngStyle]="{'color':'#fff','margin-left':'10px'}" class="groups-container">No Groups yet</p>
                 </ng-template>
@@ -68,7 +72,7 @@
                     <app-not-messages></app-not-messages>
                 </ng-template>
     </div>
-    <app-options class="options" (toggle)="toggleMenu()"></app-options>
+    <app-options class="options" [appUser]="user" (toggle)="toggleMenu()"></app-options>
 
     <div class="send-message">
         <textarea 
@@ -82,6 +86,7 @@
         ></textarea>
 
         <mat-icon class="send-icon" (click)="sendMessage()">send</mat-icon>
+
     </div>
 </div>
 

@@ -2,8 +2,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of, Subject } from 'rxjs';
 import { message } from 'src/app/core/models/message';
-import { userMessage } from 'src/app/core/models/userMessage';
-import { groupMessage } from 'src/app/core/models/groupMessage';
 
 import { environment } from 'src/environments/environment.development';
 import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
@@ -59,13 +57,12 @@ export class ChatService {
       .then(()=>console.log('Connection Started'))
       .catch(err=>console.error('Error while starting connection',err))
 
-    this.hubConnection.on('ReceiveMessage',(message:message)=>{
-      console.log("message Received",message);
-      this.messageReceivedSubject.next(message);
+    this.hubConnection.on('ReceiveMessage',(message:any)=>{
+      console.log(`New Message: ${message.text}`)
+      this.messageReceivedSubject.next(message)
     })
 
     this.hubConnection.on('ReceiveMessageHistory', (messages: message[]) => {
-      console.log("message Received", messages);
       this.messageHistorySubject.next(messages);
     })
   }
@@ -78,6 +75,12 @@ export class ChatService {
   public sendMessageToUser(receiver: string, sender: string,message:string) {
     this.hubConnection.invoke('SendMessageToUser', receiver, sender,message)
       .catch(err => console.error(err))
+  }
+  public getGroupMessageHistory(group:string,user:string){
+    this.hubConnection.invoke('GetGroupMessages',group,user)
+  }
+  public sendGroupMessage(group:string,sender:string,message:string){
+    this.hubConnection.invoke('SendMessageToGroup',group,sender,message)
   }
 
 }

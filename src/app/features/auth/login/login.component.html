@@ -12,7 +12,8 @@
             [(ngModel)]="email" 
             class="input" 
             placeholder="email" 
-            #emailInput="ngModel">
+            #emailInput="ngModel"
+            >
             
             <input 
             id="password" 
@@ -27,7 +28,9 @@
             <hr>
             <div class="login-register">
                 <p>Don't have an account?</p>
-                <a>Sign Up</a>
+                <a (click)="showModal()">Sign Up</a>
+                        <app-register [isVisible]="isModalVisible" (closeModalEvent)="showModal()">
+                        </app-register>
             </div>
         </div>
     </div>
