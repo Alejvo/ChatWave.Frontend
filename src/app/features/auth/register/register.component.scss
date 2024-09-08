@@ -7,7 +7,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 300;
+    z-index: 3000;
 }
 
 .register-content {
@@ -17,26 +17,26 @@
     transform: translate(-50%, -50%);
     background-color: $LighterDimGray;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 500;
+    z-index: 5000;
     width: 80%;
     max-width: 600px;
-    padding: 30px 30px 0 25px;
+    padding: 15px 20px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
             .register-title {
                     text-align: left;
                     margin-left: 15px;
-                    font-size: 36px;
+                    font-size: 32px;
                     color: $White;
-                    margin-bottom: 25px;
+                    margin-bottom: 15px;
                     font-weight: bold;
                 }
             
                 .register-subtitle {
                     margin-left: 15px;
                     text-align: left;
-                    font-size: 30px;
+                    font-size: 26px;
                     color: $White;
                 }
             hr{
@@ -44,30 +44,42 @@
                 width: 100%;
             }
     .register-form{
-        margin-top: 15px;
+        margin-top: 15px;   
         display: grid;
         grid-template-areas:
             "firstname lastname"
+            "username username"
             "email email"
             "password password"
             "birthday birthday"
             "button button";
-            grid-template-rows: repeat(5,1fr);
+            grid-template-rows: repeat(6,1fr);
             grid-template-columns: repeat(2,1fr);
-            gap: 25px 10px;
-        #birthday{
-            grid-area: birthday;
+            gap: 10px;
+            padding: 0 30px;
+            justify-content: center;
+            align-items: center ;
+
+        #usernameInput{
+            grid-area: username;
         }
-        #firstname{
+        #birthdayInput{
+            grid-area: birthday;
+            span{
+                color: $White;
+                font-size: 18px;
+            }
+        }
+        #firstnameInput{
             grid-area: firstname;
         }
-        #lastname{
+        #lastnameInput{
             grid-area: lastname;
         }
-        #email{
+        #emailInput{
             grid-area: email;
         }
-        #password{
+        #passwordInput{
             grid-area: password;
         }
         #button{
@@ -77,10 +89,10 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 8px 0;
+            gap: 5px 0;
             label{
                 color: $White;
-                font-size: 20px;
+                font-size: 18px;
             }
             input{
                 height: 35px;
@@ -101,13 +113,18 @@
             select{
                 background-color: $LightGray;
                 width: 170px;
-                height: 40px;
+                height: 35px;
                 padding: 10px 15px;
                 border: none;
                 border-radius: 5px;
                 font-size: 16px;
                 cursor: pointer;
             }
+        }
+        .birthday-container{
+            display: flex;
+            flex-direction: column;
+            gap:5px;
         }
         .register-button{
             border: none;
@@ -121,10 +138,14 @@
             cursor: pointer;
             justify-self: center;
 
-            &:hover{
-                background-color: $LightGray;
-                color: $Green;
-                }
+            &:hover:not(:disabled),
+            &:active:not(:disabled){
+                background-color: $DarkGreen;
+            }
+            &:disabled{
+                filter: opacity(0.5);
+                cursor: not-allowed;
+            }
             }
         }
     }

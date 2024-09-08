@@ -22,7 +22,17 @@ export class UserService {
     return this.http.get<User>(`${this.apiUrl}/api/users/id/${id}`, { params })
     
   }
-
+  registerUser(
+    firstname:string,
+    lastname:string,
+    email:string,
+    password:string,
+    username:string,
+    birthday: Date):Observable<HttpResponse<any>>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      const params ={firstname,lastname,email,password,username,birthday}
+      return this.http.post<any>(`${this.apiUrl}/api/users/register`,params,{headers});
+  }
   getGroups():Observable<groupResponse[]>{
     return this.http.get<groupResponse[]>(`${this.apiUrl}/api/groups`)
   }

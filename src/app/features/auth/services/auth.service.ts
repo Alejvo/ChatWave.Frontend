@@ -11,10 +11,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient) 
-  {
-
-  }
+  constructor(private http:HttpClient) {}
 
   private apiUrl = environment.apiUrl;
   private decodeToken(token:string):any{
