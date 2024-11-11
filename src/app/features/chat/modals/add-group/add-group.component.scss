@@ -47,6 +47,12 @@
             mat-icon{
                 color: white;
             }
+
+            &:hover,&:active{
+                background-color: $DimGray;
+                border-radius: 4px;
+                cursor: pointer;
+            }
         }
 
         .search-input {

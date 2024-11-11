@@ -2,10 +2,11 @@
 <div class="modal-content" *ngIf="isVisible">
     <span class="close" (click)="closeModal()">&times;</span>
     <div class="modal-search">
-        <div class="search-icon">
-            <mat-icon>search</mat-icon>
-        </div>
+
         <input placeholder="Find a user" class="search-input">
+                <div class="search-icon">
+                    <mat-icon>search</mat-icon>
+                </div>
     </div>
     <div class="search-result">
         <div class="result-info" *ngFor="let item of result">

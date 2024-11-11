@@ -55,7 +55,14 @@ export class AuthService {
   }
 
   isLoggedIn():boolean{
-    return localStorage.getItem('token') !== null;
+
+    const token:string |null = this.getToken();
+    if(token == null){
+      return false;
+    }
+    const decodedToken = this.decodeToken(token);
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decodedToken.exp < currentTime;
   }
 
   getToken():string | null{

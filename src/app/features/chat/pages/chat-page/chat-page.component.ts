@@ -39,7 +39,6 @@ export class ChatPageComponent {
         this.chatService.startConnection();
         this.chatService.messageReceived$.subscribe({
           next: (data) => {
-            console.log(data);
             const status = data.senderId === this.userId ?'Sent':'Received'
             this.messages.push({...data,status});
           }
@@ -55,7 +54,6 @@ export class ChatPageComponent {
         });
         this.userId = info.userId;
         this.username = info.username;
-
         this.getUserById(this.userId);
       }
     }else{
@@ -78,6 +76,9 @@ export class ChatPageComponent {
     const container = this.messageContainer.nativeElement;
     container.scrollTop = container.scrollHeight;
   }
+  toggle(value:boolean){
+    value = !value;
+  }
   toggleMenu(){
     this.isSideBarActive = !this.isSideBarActive;
   }
@@ -96,6 +97,7 @@ export class ChatPageComponent {
       {
         next:(data:User)=>{
           this.user = data;
+          console.log(this.user)
         },
         error:(error)=>{
           console.error('Error when tried to get user',error)

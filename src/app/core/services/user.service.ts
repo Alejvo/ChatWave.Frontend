@@ -33,9 +33,6 @@ export class UserService {
       const params ={firstname,lastname,email,password,username,birthday}
       return this.http.post<any>(`${this.apiUrl}/api/users/register`,params,{headers});
   }
-  getGroups():Observable<groupResponse[]>{
-    return this.http.get<groupResponse[]>(`${this.apiUrl}/api/groups`)
-  }
 
   addToGroup(groupId: string, userId: string): Observable<HttpResponse<any>>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

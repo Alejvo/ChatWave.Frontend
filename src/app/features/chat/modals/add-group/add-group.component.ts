@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { groupResponse } from 'src/app/core/models/groupResponse';
 import { User } from 'src/app/core/models/users/user';
+import { GroupService } from 'src/app/core/services/group.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -15,13 +16,22 @@ export class AddGroupComponent {
   groups!: groupResponse[];
   @Input() appUser: User | null = null;
 
-  constructor(private userService:UserService){}
+  constructor(
+    private userService:UserService,
+    private groupService:GroupService){}
 
   loadGroups(){
-    this.userService.getGroups().subscribe({
+    this.groupService.getGroups().subscribe({
       next: (data) => {
         let groupsId = this.appUser?.groups.map(group=>group.id) || []
         this.groups = data.filter(group=>!groupsId.includes(group.id))
+      }
+    })
+  }
+  filterGroups(value:string){
+    this.groupService.getGroupsByName(value).subscribe({
+      next:(res)=>{
+        this.groups = res;
       }
     })
   }
