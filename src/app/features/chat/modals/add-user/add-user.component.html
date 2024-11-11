@@ -3,8 +3,14 @@
     <span class="close" (click)="closeModal()">&times;</span>
     <div class="modal-search">
 
-        <input placeholder="Find a user" class="search-input">
-                <div class="search-icon">
+        <input
+            #userInput
+            placeholder="Find a user" 
+            class="search-input" 
+            (keyup.enter)="filterUsers(userInput.value)">
+                <div 
+                    class="search-icon"
+                    (click)="filterUsers(userInput.value)">
                     <mat-icon>search</mat-icon>
                 </div>
     </div>

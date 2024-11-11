@@ -22,6 +22,12 @@ export class UserService {
     return this.http.get<User>(`${this.apiUrl}/api/users/id/${id}`, { params })
     
   }
+  getUsersByUsername(username: string): Observable<User[]> {
+    let params = new HttpParams();
+    params.set('username', username);
+    return this.http.get<User[]>(`${this.apiUrl}/api/users/username/${username}`, { params })
+
+  }
   registerUser(
     firstname:string,
     lastname:string,

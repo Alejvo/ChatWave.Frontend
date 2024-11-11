@@ -83,6 +83,7 @@
         class="send-message-input" 
         placeholder="Write your message" 
         #messageInput="ngModel"
+        (keyup.enter)="sendMessage()"
         ></textarea>
 
         <mat-icon class="send-icon" (click)="sendMessage()">send</mat-icon>

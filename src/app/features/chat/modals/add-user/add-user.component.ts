@@ -26,6 +26,16 @@ export class AddUserComponent {
       }
     })
   }
+
+  filterUsers(value:string){
+    this.userService.getUsersByUsername(value).subscribe({
+      next: (data) => {
+        let friendId = this.appUser?.friends.map(friend => friend.id) || []
+        this.result = data.filter(user => user.id !== this.appUser?.id && !friendId.includes(user.id))
+      }
+    })
+  }
+
   loadContent() {
     this.userService.getUsers().subscribe({
       next: (data) => {
