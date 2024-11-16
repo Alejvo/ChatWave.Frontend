@@ -24,6 +24,8 @@ export class ChatPageComponent {
   isSent:boolean = true;
   userId!:string;
   username:string ='';
+  photo!:string;
+  imageFormat: string = 'data:image/png;base64,';
   @ViewChild('messageContainer') private messageContainer!:ElementRef;
 
   constructor(
@@ -96,8 +98,18 @@ export class ChatPageComponent {
     this.userService.getUserById(id).subscribe(
       {
         next:(data:User)=>{
-          this.user = data;
-          console.log(this.user)
+          this.user = 
+          {
+            ...data,
+            friends:data.friends.map(friend =>({
+              ...friend,
+              profileImage:friend.profileImage
+            }))
+          }
+          //data;
+          this.photo = `data:image/png;base64,${this.user!.profileImage}`
+          console.log(this.user.friends)
+
         },
         error:(error)=>{
           console.error('Error when tried to get user',error)

@@ -8,4 +8,5 @@ export interface User{
     age:number;
     groups:group[];
     friends:friend[];
+    profileImage:string;
 }
