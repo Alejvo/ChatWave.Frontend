@@ -48,6 +48,7 @@
                         <app-contacts 
                         [Name]="group.name" 
                         (messagesEvent)="loadHistory(group.id,'group')"
+                        [profilePhoto]="'data:image/png;base64,' + group.image"
                         ></app-contacts>
                     </div>
                 </ng-container>

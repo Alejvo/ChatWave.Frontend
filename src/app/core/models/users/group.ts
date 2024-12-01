@@ -1,4 +1,6 @@
 export interface group {
     id: string,
-    name: string
+    name: string,
+    description:string,
+    image:string
 }

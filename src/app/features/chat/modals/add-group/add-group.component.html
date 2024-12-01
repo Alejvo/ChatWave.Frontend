@@ -10,7 +10,8 @@
     <div class="search-result">
         <div class="result-info" *ngFor="let item of groups">
             <div class="result-content">
-                <div class="result-image"></div>
+                <div class="result-image">
+                </div>
                 <div class="result-title">{{item.name}}</div>
             </div>
             <button class="result-button" (click)="joinGroup(item.id)">Join</button>

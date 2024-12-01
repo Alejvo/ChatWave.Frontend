@@ -12,7 +12,9 @@
             [(ngModel)]="email" 
             class="input" 
             placeholder="email" 
-            #emailInput="ngModel"
+            #emailInput
+            (keyup.enter)="setfocus()"
+            autofocus
             >
             
             <input 
@@ -22,7 +24,8 @@
             class="input" 
             placeholder="password" 
             type="password" 
-            #passwordInput="ngModel">
+            #passwordInput
+            (keyup.enter)="login()">
             <button class="login-button" (click)="login()">Log In</button>
             <a>Forgot your password?</a>
             <hr>

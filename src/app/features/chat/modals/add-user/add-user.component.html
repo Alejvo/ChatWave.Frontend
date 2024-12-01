@@ -17,7 +17,9 @@
     <div class="search-result">
         <div class="result-info" *ngFor="let item of result">
             <div class="result-content">
-                <div class="result-image"></div>
+                <div class="result-image">
+                    <img [src]="'data:image/png;base64,' + item.profileImage" alt="Profile Image"/>
+                </div>
                 <div class="result-title">{{item.userName}}</div>
             </div>
             <button class="result-button" (click)="addFriend(item.id)">Add to Friend</button>

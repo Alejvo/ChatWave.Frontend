@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
+  @ViewChild('passwordInput')input!: ElementRef;
   public email:string = '';
   public password:string = '';
   public isModalVisible = false;
@@ -28,5 +28,8 @@ export class LoginComponent {
 
   showModal() {
     this.isModalVisible = !this.isModalVisible;
+  }
+  setfocus(){
+    this.input.nativeElement.focus();
   }
 }

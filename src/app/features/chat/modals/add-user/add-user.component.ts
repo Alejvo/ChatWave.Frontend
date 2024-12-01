@@ -16,6 +16,7 @@ export class AddUserComponent {
 
 
   constructor(private userService: UserService) { }
+  
   addFriend(friendId:string){
     let userId = this.appUser?.id;
     this.userService.addToFriend(userId!,friendId).subscribe({
@@ -41,6 +42,7 @@ export class AddUserComponent {
       next: (data) => {
         let friendId = this.appUser?.friends.map(friend => friend.id) || []
         this.result = data.filter(user => user.id !== this.appUser?.id && !friendId.includes(user.id))
+        
       }
     })
   }
